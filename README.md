@@ -39,9 +39,11 @@ string output =  diffobj.GenerateDiffOutput(oldText,newText);
 ```
 
 output is:
-cmd```
-<span style="color:#990000;background-color:#ffcc99;text-decoration:line-through;">The </span><span style="color:#003300;background-color:#ccff66;">A </span><span style="">quick </span><span style="color:#990000;background-color:#ffcc99;text-decoration:line-through;">brown </span><span style="color:#990000;background-color:#ffcc99;text-decoration:line-through;">fox </span><span style="color:#003300;background-color:#ccff66;">cat </span><span style="">jumps </span><span style="">over </span><span style="">the </span><span style="">lazy </span><span style="color:#003300;background-color:#ccff66;">sleeping </span><span style="">dog</span>
-```
+![Output HTML](https://raw.githubusercontent.com/thezaza101/textdiffcore/master/docs/HTMLOutput.png)
+
+Which looks like this in a web browser:
+![Output HTML after rendering](https://raw.githubusercontent.com/thezaza101/textdiffcore/master/docs/HTMLOutputRender.png)
+
 
 ## License
 
