@@ -44,6 +44,8 @@ output is:
 Which looks like this in a web browser:
 ![Output HTML after rendering](https://raw.githubusercontent.com/thezaza101/textdiffcore/master/docs/HTMLOutputRender.png)
 
+## How to implement your own output engine or text comparison engine 
+TBA
 
 ## License
 
