@@ -9,17 +9,17 @@ Crossplatform diff engine for .net core
 
 Package Manager:
 ```cmd
-Install-Package LStoreJSON
+PM> Install-Package textdiffcore -Version 1.0.0 
 ```
 
 .NET CLI
 ```cmd
-dotnet add package LStoreJSON
+dotnet add package textdiffcore --version 1.0.0 
 ```
 
 Packet CLI
 ```cmd
-paket add LStoreJSON
+paket add textdiffcore --version 1.0.0 
 ```
 
 ### In your code...
