@@ -2,6 +2,8 @@
 
 Crossplatform diff engine for .net core
 
+[![Build Status](https://travis-ci.com/thezaza101/textdiffcore.svg?branch=master)](https://travis-ci.com/thezaza101/textdiffcore)
+
 
 ## How to use
 
