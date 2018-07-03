@@ -16,7 +16,7 @@ namespace Example
 
             string oldText = "The quick brown fox jumps over the lazy dog";
             string newText = "A quick cat jumps over the lazy sleeping dog";
-            string output =  diffobj.GenerateDiffOutput(oldText,newText);
+            string output =  "";
 
             if(true)
             {
@@ -29,6 +29,7 @@ namespace Example
                 newText = "The quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EEEE");
                 output+="<br/>";
                 
@@ -37,6 +38,7 @@ namespace Example
                 newText = "Once The quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "Once ","The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "AEEEE");
                 output+="<br/>";
 
@@ -46,6 +48,7 @@ namespace Example
                 newText = "quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "REEE");
                 output+="<br/>";
 
@@ -55,6 +58,7 @@ namespace Example
                 newText = "The quick agile brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "agile ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EEAEE");
                 output+="<br/>";
 
@@ -64,6 +68,7 @@ namespace Example
                 newText = "The quick fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EERE");
                 output+="<br/>";
 
@@ -73,6 +78,7 @@ namespace Example
                 newText = "The quick brown fox jumped";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox ", "jumped");
                 OutputPatternMatch(diffobj.InnerList, "EEEEA");
                 output+="<br/>";
 
@@ -82,6 +88,7 @@ namespace Example
                 newText = "The quick brown";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EEER");
                 output+="<br/>";
 
@@ -92,6 +99,7 @@ namespace Example
                 newText = "A quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ","A ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "RAEEE");
                 output+="<br/>";
 
@@ -101,6 +109,7 @@ namespace Example
                 newText = "The quick blue fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ","blue ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EERAE");
                 output+="<br/>";
 
@@ -110,6 +119,7 @@ namespace Example
                 newText = "The quick brown cat";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox ", "cat");
                 OutputPatternMatch(diffobj.InnerList, "EEERA");
                 output+="<br/>";
 
@@ -119,6 +129,7 @@ namespace Example
                 newText = "The quick agile brown fox jumped";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "agile ", "brown ", "fox ", "jumped");
                 OutputPatternMatch(diffobj.InnerList, "EEAEEA");
                 output+="<br/>";
 
@@ -128,6 +139,7 @@ namespace Example
                 newText = "quick fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "RRRE");
                 output+="<br/>";
 
@@ -137,6 +149,7 @@ namespace Example
                 newText = "The slow brown cat";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "slow ", "brown ", "fox ", "cat");
                 OutputPatternMatch(diffobj.InnerList, "ERAERA");
                 output+="<br/>";
             }
@@ -147,6 +160,42 @@ namespace Example
 
             Console.ReadLine();
         }
+
+        static bool OutputTextMatch (List<Diffrence> list, params string[] expectedList)
+        {
+            bool result = true;
+            if (list.Count != expectedList.Length)
+            {
+                System.Console.WriteLine("Text matching failed");
+                return false;
+            }
+            for (int i = 0; i<list.Count; i++)
+            {
+                if(list[i].value != expectedList[i])
+                {
+                    result = false;
+                }
+            }
+
+            if (result)
+            {
+                System.Console.WriteLine("Text matching passed");
+            }
+            else
+            {
+                System.Console.WriteLine("Text matching failed");
+            }
+
+
+
+            return result;
+        }
+
+
+
+
+
+
 
         static void PrintList(List<Diffrence> d, string oldtext, string newtext)
         {

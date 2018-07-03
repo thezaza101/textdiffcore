@@ -19,6 +19,9 @@ namespace textdiffcore.TextDiffEngine
                 {
                     InnerList.Add(new Diffrence(){value = s+p, action = TextDiffAction.Equal});
                 }
+                //Remove the padding from the final element in the list
+                Diffrence lastEqualDiff = InnerList.LastOrDefault();            
+                lastEqualDiff.value = lastEqualDiff.value.Trim();
                 return InnerList;
             }
 
@@ -113,17 +116,15 @@ namespace textdiffcore.TextDiffEngine
                 {
                     if(InnerList.Last().value != newTextWords[i]+p)
                     {
-                        if((i+1)==newTextWords.Count())
-                        {
-                            InnerList.Add(new Diffrence(){value = newTextWords[i], action = TextDiffAction.Equal});
-                        }
-                        else
-                        {
-                            InnerList.Add(new Diffrence(){value = newTextWords[i]+p, action = TextDiffAction.Equal});
-                        }
+                        InnerList.Add(new Diffrence(){value = newTextWords[i]+p, action = TextDiffAction.Equal});
                     }
                 }
             }
+
+            //Remove the padding from the final element in the list
+            Diffrence lastDiff = InnerList.LastOrDefault();            
+            lastDiff.value = lastDiff.value.Trim();
+            
             return InnerList;
         }
     }
