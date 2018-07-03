@@ -22,13 +22,14 @@ namespace Example
             {
                 oldText = "The quick brown fox";
                 output ="";
-
+                
 
                 //Equal
                 System.Console.WriteLine("#1 Equal test");
                 newText = "The quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "EEEE");
                 output+="<br/>";
                 
                 //Add at start
@@ -36,6 +37,7 @@ namespace Example
                 newText = "Once The quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "AEEEE");
                 output+="<br/>";
 
         
@@ -44,6 +46,7 @@ namespace Example
                 newText = "quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "REEE");
                 output+="<br/>";
 
     
@@ -52,6 +55,7 @@ namespace Example
                 newText = "The quick agile brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "EEAEE");
                 output+="<br/>";
 
         
@@ -60,6 +64,7 @@ namespace Example
                 newText = "The quick fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "EERE");
                 output+="<br/>";
 
                 
@@ -68,6 +73,7 @@ namespace Example
                 newText = "The quick brown fox jumped";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "EEEEA");
                 output+="<br/>";
 
 
@@ -76,6 +82,7 @@ namespace Example
                 newText = "The quick brown";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "EEER");
                 output+="<br/>";
 
                 
@@ -85,6 +92,7 @@ namespace Example
                 newText = "A quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "RAEEE");
                 output+="<br/>";
 
 
@@ -93,6 +101,7 @@ namespace Example
                 newText = "The quick blue fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "EERAE");
                 output+="<br/>";
 
 
@@ -101,6 +110,7 @@ namespace Example
                 newText = "The quick brown cat";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "EEERA");
                 output+="<br/>";
 
 
@@ -109,6 +119,7 @@ namespace Example
                 newText = "The quick agile brown fox jumped";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "EEAEEA");
                 output+="<br/>";
 
 
@@ -117,6 +128,7 @@ namespace Example
                 newText = "quick fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "RRRE");
                 output+="<br/>";
 
 
@@ -125,6 +137,7 @@ namespace Example
                 newText = "The slow brown cat";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
+                OutputPatternMatch(diffobj.InnerList, "ERAERA");
                 output+="<br/>";
             }
 
@@ -144,7 +157,58 @@ namespace Example
                 System.Console.WriteLine(df.action.ToString()  + " \t " +df.value);
             }
             System.Console.WriteLine();
-            System.Console.WriteLine();
         }
+
+        static bool OutputPatternMatch(List<Diffrence> list, string pattern)
+        {
+            bool result = true;
+            if (list.Count != pattern.Length)
+            {
+                return false;
+            }
+            for (int i = 0; i<list.Count; i++)
+            {
+                if(list[i].action != GetDiffAction(pattern[i]))
+                {
+                    result = false;
+                }
+            }
+            
+            if (result)
+            {
+                System.Console.WriteLine("Pattern matching passed");
+            }
+            else
+            {
+                System.Console.WriteLine("Pattern matching failed");
+            }
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            
+            return result;
+        }
+
+        static TextDiffAction GetDiffAction(char action)
+        {
+            switch (action)
+            {
+                case 'A':
+                    return TextDiffAction.Add;
+                    break;
+
+                case 'R':
+                    return TextDiffAction.Remove;
+                    break;
+
+                case 'E':
+                    return TextDiffAction.Equal;
+                    break;
+                
+                default:
+                    throw new Exception("invalid action");
+                    break;
+            }
+        }
+
     }
 }

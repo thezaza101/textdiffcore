@@ -105,6 +105,7 @@ namespace textdiffcore.TextDiffEngine
                         break;
                 }
             }
+
             //if the last diff isn’t the end of the text array then add the reminder of the array to the difference list
             if (changeIndex != newTextWords.Count())
             {
