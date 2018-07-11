@@ -11,17 +11,17 @@ Crossplatform diff engine for .net core
 
 Package Manager:
 ```cmd
-PM> Install-Package textdiffcore -Version 1.0.0 
+PM> Install-Package textdiffcore -Version 1.0.1 
 ```
 
 .NET CLI
 ```cmd
-dotnet add package textdiffcore --version 1.0.0 
+dotnet add package textdiffcore --version 1.0.1 
 ```
 
 Packet CLI
 ```cmd
-paket add textdiffcore --version 1.0.0 
+paket add textdiffcore --version 1.0.1
 ```
 
 ### In your code...
@@ -33,7 +33,7 @@ using textdiffcore.TextDiffEngine;
 
 
 ...
-TextDiff diffobj = new TextDiff(new csDiff(), new HTMLDiffOutputGenerator("span", "style", "color:#003300;background-color:#ccff66;","color:#990000;background-color:#ffcc99;text-decoration:line-through;",""));
+TextDiff diffobj = new TextDiff(new MyersDiff(), new HTMLDiffOutputGenerator("span", "style", "color:#003300;background-color:#ccff66;","color:#990000;background-color:#ffcc99;text-decoration:line-through;",""));
 
 string oldText = "The quick brown fox jumps over the lazy dog";
 string newText = "A quick cat jumps over the lazy sleeping dog";
@@ -51,11 +51,18 @@ TBA
 
 ## License
 
-This software is released under the [GNU GPLv3 License](https://raw.githubusercontent.com/thezaza101/textdiffcore/master/LICENSE)
+This software is released under the [MIT License](https://raw.githubusercontent.com/thezaza101/textdiffcore/master/LICENSE)
 
-The Diff and DiffEntry class is (C) 2009 Thomas Bluemel, it is used here under its GNU GPL License.
+### Notice
 
-## Making contributions
+The classes within 'DiffMatchPatch.cs' is (C) 2018 The diff-match-patch Authors, it is used here under its [Apache v2.0 License](https://github.com/google/diff-match-patch/blob/master/LICENSE).
+
+
+## Found a bug?
+
+If you've found a bug please file a new [issue](https://github.com/thezaza101/textdiffcore/issues).
+
+### Making contributions
 To propose a change, you first need to [create a GitHub account](https://github.com/join).
 
 Once you're signed in, you can browse through the folders above and choose the content you're looking for. You should then see the content in Markdown form. Click the Edit icon in the top-right corner to start editing the content.

@@ -8,20 +8,20 @@ using textdiffcore.TextDiffEngine;
 
 namespace tests
 {
-    public class csDiffOutputList
+    public class MyersDiffOutputList
     {
         private readonly TextDiff diffengine;
         private string originalText = "The quick brown fox";
 
-        public csDiffOutputList()
+        public MyersDiffOutputList()
         {
-            diffengine = new TextDiff(new csDiff(), new HTMLDiffOutputGenerator());
+            diffengine = new TextDiff(new MyersDiff(), new HTMLDiffOutputGenerator());
         }
         [Fact]
         public void TestListGen()
         {
             var list = diffengine.GenerateDiffList("The quick brown fox jumped","The slow brown fox jumped over");
-            Assert.True(list.Count == 7, "There should be 7 elements in the diff list");
+            Assert.True(list.Count == 5, "There should be 5 elements in the diff list");
         }
 
         //#1 Equal Test
@@ -30,7 +30,7 @@ namespace tests
         {
             string stringToTest = "The quick brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "EEEE"), "#1 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "E"), "#1 Pattern matching failed");
         }
 
         //#2 Add at start
@@ -39,7 +39,7 @@ namespace tests
         {
             string stringToTest = "Once The quick brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "AEEEE"), "#2 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "AE"), "#2 Pattern matching failed");
         }
 
         //#3 Remove at start
@@ -48,7 +48,7 @@ namespace tests
         {
             string stringToTest = "quick brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "REEE"), "#3 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "RE"), "#3 Pattern matching failed");
         }
 
         //#4 Add at middle
@@ -57,7 +57,7 @@ namespace tests
         {
             string stringToTest = "The quick agile brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "EEAEE"), "#4 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "EAE"), "#4 Pattern matching failed");
         }
 
         //#5 Remove at middle
@@ -66,7 +66,7 @@ namespace tests
         {
             string stringToTest = "The quick fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "EERE"), "#5 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "ERE"), "#5 Pattern matching failed");
         }
 
         //#6 Add at end
@@ -75,7 +75,7 @@ namespace tests
         {
             string stringToTest = "The quick brown fox jumped";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "EEEEA"), "#6 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "EA"), "#6 Pattern matching failed");
         }
 
         //#7 Remove at end
@@ -84,7 +84,7 @@ namespace tests
         {
             string stringToTest = "The quick brown";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "EEER"), "#7 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "ER"), "#7 Pattern matching failed");
         }
 
         //#8 Update at start
@@ -93,7 +93,7 @@ namespace tests
         {
             string stringToTest = "A quick brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "RAEEE"), "#8 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "RAE"), "#8 Pattern matching failed");
         }
 
         //#9 Update at middle
@@ -102,7 +102,7 @@ namespace tests
         {
             string stringToTest = "The quick blue fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "EERAE"), "#9 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "ERAE"), "#9 Pattern matching failed");
         }
 
         //#10 Upadte at end
@@ -111,7 +111,7 @@ namespace tests
         {
             string stringToTest = "The quick brown cat";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "EEERA"), "#10 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "ERA"), "#10 Pattern matching failed");
         }
 
         //#11 Multiple add
@@ -120,7 +120,7 @@ namespace tests
         {
             string stringToTest = "The quick agile brown fox jumped";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "EEAEEA"), "#11 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "EAEA"), "#11 Pattern matching failed");
         }
 
         //#12 Multiple remove
@@ -129,7 +129,7 @@ namespace tests
         {
             string stringToTest = "quick fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputPatternMatch(listOutput, "RRRE"), "#12 Pattern matching failed");
+            Assert.True(OutputPatternMatch(listOutput, "RERE"), "#12 Pattern matching failed");
         }
 
         //#13 Multiple updates
@@ -182,7 +182,7 @@ namespace tests
         {
             string stringToTest = "The quick brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "brown ", "fox"), "#1 Text matching failed");
+            Assert.True(OutputTextMatch(listOutput, "The quick brown fox"), "#1 Text matching failed");
         }
 
         //#2 Add at start
@@ -191,7 +191,7 @@ namespace tests
         {
             string stringToTest = "Once The quick brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput,"Once ","The ", "quick ", "brown ", "fox"), "#2 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "Once ","The quick brown fox"), "#2 Text matching failed");            
         }
 
         //#3 Remove at start
@@ -200,7 +200,7 @@ namespace tests
         {
             string stringToTest = "quick brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "brown ", "fox"), "#3 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The ", "quick brown fox"), "#3 Text matching failed");            
         }
 
         //#4 Add at middle
@@ -209,7 +209,7 @@ namespace tests
         {
             string stringToTest = "The quick agile brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "agile ", "brown ", "fox"), "#4 Text matching failed");
+            Assert.True(OutputTextMatch(listOutput, "The quick ", "agile ", "brown fox"), "#4 Text matching failed");
         }
 
         //#5 Remove at middle
@@ -218,7 +218,7 @@ namespace tests
         {
             string stringToTest = "The quick fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "brown ", "fox"), "#5 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The quick ", "brown ", "fox"), "#5 Text matching failed");            
         }
 
         //#6 Add at end
@@ -227,7 +227,7 @@ namespace tests
         {
             string stringToTest = "The quick brown fox jumped";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "brown ", "fox ", "jumped"), "#6 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The quick brown fox", " jumped"), "#6 Text matching failed");            
         }
 
         //#7 Remove at end
@@ -236,7 +236,7 @@ namespace tests
         {
             string stringToTest = "The quick brown";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "brown ", "fox"), "#7 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The quick brown", " fox"), "#7 Text matching failed");            
         }
 
         //#8 Update at start
@@ -245,7 +245,7 @@ namespace tests
         {
             string stringToTest = "A quick brown fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ","A ", "quick ", "brown ", "fox"), "#8 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The","A", " quick brown fox"), "#8 Text matching failed");            
         }
 
         //#9 Update at middle
@@ -254,7 +254,7 @@ namespace tests
         {
             string stringToTest = "The quick blue fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "brown ","blue ", "fox"), "#9 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The quick b", "rown","lue", " fox"), "#9 Text matching failed");            
         }
 
         //#10 Upadte at end
@@ -263,7 +263,7 @@ namespace tests
         {
             string stringToTest = "The quick brown cat";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "brown ", "fox ", "cat"), "#10 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The quick brown ", "fox", "cat"), "#10 Text matching failed");            
         }
 
         //#11 Multiple add
@@ -272,7 +272,7 @@ namespace tests
         {
             string stringToTest = "The quick agile brown fox jumped";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "agile ", "brown ", "fox ", "jumped"), "#11 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The quick ", "agile ", "brown fox", " jumped"), "#11 Text matching failed");            
         }
 
         //#12 Multiple remove
@@ -281,7 +281,7 @@ namespace tests
         {
             string stringToTest = "quick fox";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "brown ", "fox"), "#12 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The ", "quick", " brown", " fox"), "#12 Text matching failed");            
         }
 
         //#13 Multiple updates
@@ -290,7 +290,7 @@ namespace tests
         {
             string stringToTest = "The slow brown cat";
             List<Diffrence> listOutput = diffengine.GenerateDiffList(originalText,stringToTest);
-            Assert.True(OutputTextMatch(listOutput, "The ", "quick ", "slow ", "brown ", "fox ", "cat"), "#13 Text matching failed");            
+            Assert.True(OutputTextMatch(listOutput, "The ", "quick", "slow", " brown ", "fox", "cat"));            
         }
 
         private bool OutputTextMatch (List<Diffrence> list, params string[] expectedList)
