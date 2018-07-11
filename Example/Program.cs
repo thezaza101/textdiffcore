@@ -13,7 +13,7 @@ namespace Example
         {
             //TextDiff diffobj = new TextDiff(new csDiff(), new HTMLDiffOutputGenerator("span", "style", "color:#003300;background-color:#ccff66;","color:#990000;background-color:#ffcc99;text-decoration:line-through;",""));
             
-            TextDiff diffobj = new TextDiff(new csDiff(), new MarkdownDiffOutputGenerator());
+            TextDiff diffobj = new TextDiff(new MyersDiff(), new MarkdownDiffOutputGenerator());
 
             string oldText = "The quick brown fox jumps over the lazy dog";
             string newText = "A quick cat jumps over the lazy sleeping dog";
@@ -30,8 +30,8 @@ namespace Example
                 newText = "The quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
-                OutputPatternMatch(diffobj.InnerList, "EEEE");
+                OutputTextMatch(diffobj.InnerList, "The quick brown fox");
+                OutputPatternMatch(diffobj.InnerList, "E");
                 output+=Environment.NewLine;
                 
                 //Add at start
@@ -39,8 +39,8 @@ namespace Example
                 newText = "Once The quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "Once ","The ", "quick ", "brown ", "fox");
-                OutputPatternMatch(diffobj.InnerList, "AEEEE");
+                OutputTextMatch(diffobj.InnerList, "Once ","The quick brown fox");
+                OutputPatternMatch(diffobj.InnerList, "AE");
                 output+=Environment.NewLine;
 
         
@@ -49,8 +49,8 @@ namespace Example
                 newText = "quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
-                OutputPatternMatch(diffobj.InnerList, "REEE");
+                OutputTextMatch(diffobj.InnerList, "The ", "quick brown fox");
+                OutputPatternMatch(diffobj.InnerList, "RE");
                 output+=Environment.NewLine;
 
     
@@ -59,8 +59,8 @@ namespace Example
                 newText = "The quick agile brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "agile ", "brown ", "fox");
-                OutputPatternMatch(diffobj.InnerList, "EEAEE");
+                OutputTextMatch(diffobj.InnerList, "The quick ", "agile ", "brown fox");
+                OutputPatternMatch(diffobj.InnerList, "EAE");
                 output+=Environment.NewLine;
 
         
@@ -69,8 +69,8 @@ namespace Example
                 newText = "The quick fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
-                OutputPatternMatch(diffobj.InnerList, "EERE");
+                OutputTextMatch(diffobj.InnerList, "The quick ", "brown ", "fox");
+                OutputPatternMatch(diffobj.InnerList, "ERE");
                 output+=Environment.NewLine;
 
                 
@@ -79,8 +79,8 @@ namespace Example
                 newText = "The quick brown fox jumped";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox ", "jumped");
-                OutputPatternMatch(diffobj.InnerList, "EEEEA");
+                OutputTextMatch(diffobj.InnerList, "The quick brown fox", " jumped");
+                OutputPatternMatch(diffobj.InnerList, "EA");
                 output+=Environment.NewLine;
 
 
@@ -89,8 +89,8 @@ namespace Example
                 newText = "The quick brown";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
-                OutputPatternMatch(diffobj.InnerList, "EEER");
+                OutputTextMatch(diffobj.InnerList, "The quick brown", " fox");
+                OutputPatternMatch(diffobj.InnerList, "ER");
                 output+=Environment.NewLine;
 
                 
@@ -100,8 +100,8 @@ namespace Example
                 newText = "A quick brown fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ","A ", "quick ", "brown ", "fox");
-                OutputPatternMatch(diffobj.InnerList, "RAEEE");
+                OutputTextMatch(diffobj.InnerList, "The","A", " quick brown fox");
+                OutputPatternMatch(diffobj.InnerList, "RAE");
                 output+=Environment.NewLine;
 
 
@@ -110,8 +110,8 @@ namespace Example
                 newText = "The quick blue fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ","blue ", "fox");
-                OutputPatternMatch(diffobj.InnerList, "EERAE");
+                OutputTextMatch(diffobj.InnerList, "The quick b", "rown","lue", " fox");
+                OutputPatternMatch(diffobj.InnerList, "ERAE");
                 output+=Environment.NewLine;
 
 
@@ -120,8 +120,8 @@ namespace Example
                 newText = "The quick brown cat";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox ", "cat");
-                OutputPatternMatch(diffobj.InnerList, "EEERA");
+                OutputTextMatch(diffobj.InnerList, "The quick brown ", "fox", "cat");
+                OutputPatternMatch(diffobj.InnerList, "ERA");
                 output+=Environment.NewLine;
 
 
@@ -130,8 +130,8 @@ namespace Example
                 newText = "The quick agile brown fox jumped";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "agile ", "brown ", "fox ", "jumped");
-                OutputPatternMatch(diffobj.InnerList, "EEAEEA");
+                OutputTextMatch(diffobj.InnerList, "The quick ", "agile ", "brown fox", " jumped");
+                OutputPatternMatch(diffobj.InnerList, "EAEA");
                 output+=Environment.NewLine;
 
 
@@ -140,8 +140,8 @@ namespace Example
                 newText = "quick fox";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
-                OutputPatternMatch(diffobj.InnerList, "RRRE");
+                OutputTextMatch(diffobj.InnerList, "The ", "quick", " brown", " fox");
+                OutputPatternMatch(diffobj.InnerList, "RERE");
                 output+=Environment.NewLine;
 
 
@@ -150,7 +150,7 @@ namespace Example
                 newText = "The slow brown cat";
                 output += diffobj.GenerateDiffOutput(oldText,newText);
                 PrintList(diffobj.InnerList,oldText,newText);
-                OutputTextMatch(diffobj.InnerList, "The ", "quick ", "slow ", "brown ", "fox ", "cat");
+                OutputTextMatch(diffobj.InnerList, "The ", "quick", "slow", " brown ", "fox", "cat");
                 OutputPatternMatch(diffobj.InnerList, "ERAERA");
                 output+=Environment.NewLine;
             }
