@@ -157,9 +157,7 @@ namespace Example
 
 
            System.Console.WriteLine(output);
-
-
-            Console.ReadLine();
+           Console.ReadLine();
         }
 
         static bool OutputTextMatch (List<Diffrence> list, params string[] expectedList)

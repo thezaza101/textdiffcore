@@ -15,8 +15,8 @@ namespace textdiffcore.DiffOutputGenerators
         public string EqualMDStart {get;set;}
         public string EqualMDEnd {get;set;}
 
-        public MarkdownDiffOutputGenerator(string AddMD = "**", string RemoveMD = "~~", string EqualMD = "")
-         : this (AddMD,AddMD,RemoveMD,RemoveMD,EqualMD,EqualMD)
+        public MarkdownDiffOutputGenerator(string AddMD = "**", string RemoveMD = "**~~", string EqualMD = "")
+         : this (AddMD,ReverseString(AddMD),RemoveMD,ReverseString(RemoveMD),EqualMD,ReverseString(EqualMD))
         {   }
 
         private MarkdownDiffOutputGenerator(string AddMDPre = "",string AddMDPost = "", string RemoveMDPre = "", string RemoveMDPost = "", string EqualMDPre = "", string EqualMDPost = "")
@@ -27,6 +27,12 @@ namespace textdiffcore.DiffOutputGenerators
             RemoveMDEnd = RemoveMDPost;
             EqualMDStart = EqualMDPre;
             EqualMDEnd = EqualMDPost;
+        }
+        private static string ReverseString(string s)
+        {
+            char[] arr = s.ToCharArray();
+            Array.Reverse(arr);
+            return new string(arr);
         }
         public string GenerateOutput(Diffrence diffrence)
         {            
