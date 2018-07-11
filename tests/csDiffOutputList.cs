@@ -167,19 +167,12 @@ namespace tests
             {
                 case 'A':
                     return TextDiffAction.Add;
-                    break;
-
                 case 'R':
                     return TextDiffAction.Remove;
-                    break;
-
                 case 'E':
                     return TextDiffAction.Equal;
-                    break;
-                
                 default:
                     throw new Exception("invalid action");
-                    break;
             }
         }
 

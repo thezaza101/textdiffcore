@@ -11,8 +11,9 @@ namespace Example
     {
         static void Main(string[] args)
         {
-            TextDiff diffobj = new TextDiff(new csDiff(), new HTMLDiffOutputGenerator("span", "style", "color:#003300;background-color:#ccff66;","color:#990000;background-color:#ffcc99;text-decoration:line-through;",""));
+            //TextDiff diffobj = new TextDiff(new csDiff(), new HTMLDiffOutputGenerator("span", "style", "color:#003300;background-color:#ccff66;","color:#990000;background-color:#ffcc99;text-decoration:line-through;",""));
             
+            TextDiff diffobj = new TextDiff(new csDiff(), new MarkdownDiffOutputGenerator());
 
             string oldText = "The quick brown fox jumps over the lazy dog";
             string newText = "A quick cat jumps over the lazy sleeping dog";
@@ -31,7 +32,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EEEE");
-                output+="<br/>";
+                output+=Environment.NewLine;
                 
                 //Add at start
                 System.Console.WriteLine("#2 Add at start");
@@ -40,7 +41,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "Once ","The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "AEEEE");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
         
                 //Remove at start
@@ -50,7 +51,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "REEE");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
     
                 //Add at middle
@@ -60,7 +61,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "agile ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EEAEE");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
         
                 //Remove at middle
@@ -70,7 +71,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EERE");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
                 
                 //Add at end
@@ -80,7 +81,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox ", "jumped");
                 OutputPatternMatch(diffobj.InnerList, "EEEEA");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
 
                 //Remove at end
@@ -90,7 +91,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EEER");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
                 
 
@@ -101,7 +102,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ","A ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "RAEEE");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
 
                 //Update at middle
@@ -111,7 +112,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ","blue ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "EERAE");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
 
                 //Update at end
@@ -121,7 +122,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox ", "cat");
                 OutputPatternMatch(diffobj.InnerList, "EEERA");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
 
                 //Multiple add
@@ -131,7 +132,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "agile ", "brown ", "fox ", "jumped");
                 OutputPatternMatch(diffobj.InnerList, "EEAEEA");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
 
                 //Multiple remove
@@ -141,7 +142,7 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "brown ", "fox");
                 OutputPatternMatch(diffobj.InnerList, "RRRE");
-                output+="<br/>";
+                output+=Environment.NewLine;
 
 
                 //Multiple updates
@@ -151,11 +152,11 @@ namespace Example
                 PrintList(diffobj.InnerList,oldText,newText);
                 OutputTextMatch(diffobj.InnerList, "The ", "quick ", "slow ", "brown ", "fox ", "cat");
                 OutputPatternMatch(diffobj.InnerList, "ERAERA");
-                output+="<br/>";
+                output+=Environment.NewLine;
             }
 
 
-           //System.Console.WriteLine(output);
+           System.Console.WriteLine(output);
 
 
             Console.ReadLine();
@@ -243,19 +244,12 @@ namespace Example
             {
                 case 'A':
                     return TextDiffAction.Add;
-                    break;
-
                 case 'R':
                     return TextDiffAction.Remove;
-                    break;
-
                 case 'E':
                     return TextDiffAction.Equal;
-                    break;
-                
                 default:
                     throw new Exception("invalid action");
-                    break;
             }
         }
 
