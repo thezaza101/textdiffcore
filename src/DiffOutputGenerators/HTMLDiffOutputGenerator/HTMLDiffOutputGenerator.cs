@@ -20,6 +20,17 @@ namespace textdiffcore.DiffOutputGenerators
             RemoveAttributeValue = removeAttributeValue;
             EqualAttributeValue = equalAttributeValue;
         }
+
+        public string GenerateOutput(List<Diffrence> diffrences)
+        {
+            string output = "";
+            foreach (Diffrence d in diffrences)
+            {
+                output += GenerateOutput(d);
+            }
+            return output;
+        }
+         
         public string GenerateOutput(Diffrence diffrence)
         {            
             return GenerateHTMLElement(diffrence);

@@ -6,6 +6,7 @@ namespace textdiffcore.DiffOutputGenerators
 {
     public class MarkdownDiffOutputGenerator : IDiffOutputGenerator
     {
+        List<char> esc = new List<char>(){' ', '\n', '\r', '\t'};
         public string AddMDStart {get;set;}
         public string AddMDEnd {get;set;}
 
@@ -34,12 +35,43 @@ namespace textdiffcore.DiffOutputGenerators
             Array.Reverse(arr);
             return new string(arr);
         }
+
+        public string GenerateOutput(List<Diffrence> diffrences)
+        {
+            string output = "";
+
+            List<string> mdElements = new List<string>();
+            string mdElement;
+            for (int i = 0; i<diffrences.Count; i++)
+            {
+                mdElement = GenerateOutput(diffrences[i]);
+                mdElements.Add(mdElement);
+            }
+
+            for (int i = 0; i<mdElements.Count; i++)
+            {
+                if ((i+1) < mdElements.Count)
+                {
+                    if(!esc.Contains(mdElements[i+1][0]))
+                    {
+                        mdElements[i] = mdElements[i] + " ";
+                    }
+                }
+            }
+            foreach (string s in mdElements)
+            {
+                output += s;
+            }
+
+
+            return output;
+        }
         public string GenerateOutput(Diffrence diffrence)
         {            
-            return GenerateHTMLElement(diffrence);
+            return GenerateMDElement(diffrence);
         }
 
-        private string GenerateHTMLElement(Diffrence d)
+        private string GenerateMDElement(Diffrence d)
         {
             string start;
             string end;

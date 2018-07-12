@@ -11,17 +11,17 @@ Crossplatform diff engine for .net core
 
 Package Manager:
 ```cmd
-PM> Install-Package textdiffcore -Version 1.0.1 
+PM> Install-Package textdiffcore -Version 1.0.2 
 ```
 
 .NET CLI
 ```cmd
-dotnet add package textdiffcore --version 1.0.1 
+dotnet add package textdiffcore --version 1.0.2
 ```
 
 Packet CLI
 ```cmd
-paket add textdiffcore --version 1.0.1
+paket add textdiffcore --version 1.0.2
 ```
 
 ### In your code...
