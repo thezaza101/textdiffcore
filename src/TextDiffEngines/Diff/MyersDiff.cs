@@ -7,12 +7,30 @@ using textdiffcore.TextDiffEngine.GoogleMyers;
 namespace textdiffcore.TextDiffEngine
 {
     public class MyersDiff : ITextDiffEngine
-    {   public List<Diffrence> GenerateDiff(string oldText, string newText)
+    {   
+        public diff_match_patch InnerDMP
+        {
+            get
+            {
+                return dmp;
+            }
+            set
+            {
+                dmp = value;
+            }
+        }
+        
+        private diff_match_patch dmp;
+
+        public MyersDiff()
+        {
+            dmp = new diff_match_patch();
+            dmp.Diff_Timeout = 0;
+        }
+        public List<Diffrence> GenerateDiff(string oldText, string newText)
         {
             List<Diffrence> InnerList = new List<Diffrence>();
             
-            diff_match_patch dmp = new diff_match_patch();
-            dmp.Diff_Timeout = 0;
             List<Diff> ld = dmp.diff_main(oldText, newText);
             
             foreach (Diff d in ld)

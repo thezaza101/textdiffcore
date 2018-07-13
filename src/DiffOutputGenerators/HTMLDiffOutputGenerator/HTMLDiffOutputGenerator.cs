@@ -33,7 +33,7 @@ namespace textdiffcore.DiffOutputGenerators
          
         public string GenerateOutput(Diffrence diffrence)
         {            
-            return GenerateHTMLElement(diffrence);
+            return GenerateHTMLElement(diffrence).Replace(Environment.NewLine,Environment.NewLine+"<br/>");
         }
         private string GetAttributeValue(Diffrence d)
         {
@@ -47,7 +47,14 @@ namespace textdiffcore.DiffOutputGenerators
         }
         private string GenerateHTMLElement(Diffrence d)
         {
-            return "<"+TagType+" "+AttributeName+"=\""+GetAttributeValue(d)+"\">"+d.value+"</"+TagType+">";
+            if (string.IsNullOrEmpty(GetAttributeValue(d)))
+            {
+                return d.value;
+            }
+            else
+            {
+                return "<"+TagType+" "+AttributeName+"=\""+GetAttributeValue(d)+"\">"+d.value+"</"+TagType+">";
+            }
         }
 
     }

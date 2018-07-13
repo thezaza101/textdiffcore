@@ -11,13 +11,16 @@ namespace Example
     {
         static void Main(string[] args)
         {
-            //TextDiff diffobj = new TextDiff(new csDiff(), new HTMLDiffOutputGenerator("span", "style", "color:#003300;background-color:#ccff66;","color:#990000;background-color:#ffcc99;text-decoration:line-through;",""));
+            //TextDiff diffobj = new TextDiff(new MyersDiff(), new HTMLDiffOutputGenerator("span", "style", "color:#003300;background-color:#ccff66;","color:#990000;background-color:#ffcc99;text-decoration:line-through;",""));
+            //TextDiff diffobj = new TextDiff(new MyersDiff(), new HTMLDiffOutputGenerator("span", "class", "newText","deletedText",""));
             
             TextDiff diffobj = new TextDiff(new MyersDiff(), new MarkdownDiffOutputGenerator());
-
-            string oldText = "The quick brown fox jumps over the lazy dog";
-            string newText = "A quick cat jumps over the lazy sleeping dog";
-            string output =  "";
+            
+            
+            string oldText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\nMaecenas luctus ipsum sit amet turpis pulvinar, et consequat magna tincidunt.\r\nUt tristique sem vitae justo elementum, et fermentum arcu elementum.\r\nDonec blandit facilisis vulputate. Maecenas eu elit ut tortor volutpat condimentum.\r\nPhasellus faucibus vehicula turpis eu pharetra. In imperdiet iaculis cursus.";
+            string newText = "Lorem ipsum dolor sit amet, consectetur adiafeeing elit.\r\nMaecenas  sit amet turpis pulvinar, et consequat magna tincidunt.\r\nUt tristique sem vitae justo elementum, et free arcu elementum.\r\nDwfvwc blandit facilisis vulputate. Maecenas eu elit ut tortor volutpat condimentum.\r\nPhasellus dotnet vehicula turpis eu pharetra. In imperdiet iaculis cursus chieown.";
+            
+            string output = diffobj.GenerateDiffOutput("oldText", "newText");
 
             if(true)
             {

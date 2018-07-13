@@ -52,7 +52,7 @@ namespace textdiffcore.DiffOutputGenerators
             {
                 if ((i+1) < mdElements.Count)
                 {
-                    if(!esc.Contains(mdElements[i+1][0]))
+                    if(!esc.Contains(mdElements[i+1][0]) & !esc.Contains(mdElements[i][mdElements[i].Length-1]))
                     {
                         mdElements[i] = mdElements[i] + " ";
                     }
