@@ -7,6 +7,8 @@ Crossplatform diff engine for .net core
 
 ## How to use
 
+Check out [this blog post](https://thezaza101.com/2018/07/13/diff-in-net-core-using-textdiffcore/) for a detailed write up.
+
 ### Install the package
 
 Package Manager:
